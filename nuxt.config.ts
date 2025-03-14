@@ -15,6 +15,7 @@ export default defineNuxtConfig({
 
   modules: [
     "nuxt-quasar-ui",
+    '@pinia/nuxt'
   ],
 
   quasar: {
@@ -34,6 +35,10 @@ export default defineNuxtConfig({
   css: [
     "quasar/dist/quasar.css" 
   ],
+
+  pinia: {
+    autoImports: ['defineStore', 'storeToRefs']
+  },
 
   build: {
     transpile: ["quasar"]
