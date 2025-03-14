@@ -79,6 +79,7 @@
 import { ref } from 'vue';
 import { useQuasar} from 'quasar';
 import CustomComponent from './CustomComponent.vue';
+import CustomDialogAdd from '~/components/CustomDialogAdd.vue';
 
 
 const $q = useQuasar(); 
@@ -164,7 +165,7 @@ const deleteOrganization = () => {
 
 const showAddOrganization = () => {
   $q.dialog({
-    component: CustomComponent,
+    component: CustomDialogAdd,
     componentProps: {
       message: 'This is for adding... (needs to be reapired....)'
     }

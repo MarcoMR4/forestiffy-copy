@@ -23,27 +23,49 @@
         </q-item>
   
         <q-item to="/personalDataForm" clickable v-ripple>
-          <q-item-section>My account</q-item-section>
+          <q-item-section side>
+            <q-icon class="icons" name="person" />
+          </q-item-section>
+          <q-item-section>
+            My account
+          </q-item-section>
         </q-item>
         <q-item to="/organizations" clickable>
+          <q-item-section side>
+            <q-icon class="icons" name="domain" />
+          </q-item-section>
           <q-item-section>My organizations</q-item-section>
         </q-item>
         <q-item to="/about" clickable>
+          <q-item-section side>
+            <q-icon class="icons" name="help" />
+          </q-item-section>
           <q-item-section>About</q-item-section>
         </q-item>
         <hr>
         <q-item to="/welcome">
-          <q-item-section><p>Log out</p></q-item-section>
+          <q-item-section side>
+            <q-icon class="icons" name="login" />
+          </q-item-section>
+          <q-item-section>
+            Log out
+          </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
   </template>
   
-  <script setup>
-  defineProps({
-    drawerOpen: Boolean
-  });
-  
-  defineEmits(['update:drawerOpen']);
-  </script>
+<script setup>
+defineProps({
+  drawerOpen: Boolean
+});
+
+defineEmits(['update:drawerOpen']);
+</script>
+
+<style>
+  .icons{
+    color: white;
+  }
+</style>
   
