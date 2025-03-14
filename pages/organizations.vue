@@ -107,6 +107,13 @@ const rows = ref([
     website: 'www.org1_example.com',
     phone: '+52 443 543 4365',
   },
+  {
+    name: 'organization2',
+    organization_type: '2',
+    tax_id: 3,
+    website: 'www.org2_example.com',
+    phone: '+52 443 565 4335',
+  }
 ]);
 
 const viewOrganization = () => {
