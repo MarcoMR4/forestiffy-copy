@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    "nuxt-quasar-ui"
+    "nuxt-quasar-ui",
   ],
 
   quasar: {
@@ -27,11 +27,11 @@ export default defineNuxtConfig({
           QInput: { dense: true }
         }
       }
-    }
+    },
+    plugins: ['Dialog'],
   },
 
   css: [
-    // 'quasar/src/css/index.sass',
     "quasar/dist/quasar.css" 
   ],
 
