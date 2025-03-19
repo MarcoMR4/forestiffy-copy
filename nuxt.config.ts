@@ -18,6 +18,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
 
+  buildModules: ['@nuxtjs/quasar'],
+
   quasar: {
     config: {
       extras: ["material-icons"], 

@@ -11,85 +11,24 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
-      class="q-mt-md full-width"
+       class="q-mt-md"
     >
-      <template v-slot:body-cell-actions="props">
-        <q-td :props="props">
-          <div class="q-gutter-sm q-mt-xs q-mb-xs q-mr-xs q-ml-xs q-col-gutter-none">
+    <template v-slot:body-cell-actions="{ row }">
+      <q-td class="q-pa-none flex justify-center items-center q-mt-none">
+        <OrgsActions :row="row" />
+      </q-td>
+    </template>
+    </q-table>
 
-            <q-btn
-              :icon="'visibility'"
-              icon-color="#0d3122"
-              @click="viewOrganization(props.row)"
-              flat
-              size="md"
-              class="q-mb-xs q-mr-xs q-mt-xs text-custom"
-            />
-
-            <q-btn
-              :icon="'edit'"
-              icon-color="#0d3122"
-              @click="editOrganization(props.row)"
-              flat
-              size="md"
-              class="q-mb-xs q-mr-xs q-mt-xs text-custom"
-            />
-
-            <q-btn
-              :icon="'delete_forever'"
-              color="negative"
-              @click="deleteOrganization(props.row)"
-              flat
-              size="md"
-              class="q-mb-xs q-mr-xs q-mt-xs"
-            />
-          </div>
-        </q-td>
-      </template>
-  </q-table>
-
-    <!-- Modal -->
-    <q-dialog v-model="dialogOpen">
-      <q-card style="width: 400px;">
-        <q-card-section>
-          <div class="text-h5"><b>Add new organization</b></div>
-        </q-card-section>
-        <q-card-section>
-          <q-form @submit.prevent="saveData">
-            <q-input filled v-model="formData.name" label="Name" />
-            <q-input filled v-model="formData.email" label="Email" type="email" />
-            <q-input filled v-model="formData.phone" label="Phone" type="tel" />
-            <q-btn
-              label="Save"
-              style="background: #0d3122; color: white"
-              type="submit"
-              class="full-width"
-            />
-          </q-form>
-        </q-card-section>
-        <q-card-actions>
-          <q-btn label="Close" color="primary" flat @click="dialogOpen = false" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useQuasar} from 'quasar';
-import CustomComponent from './CustomComponent.vue';
-import CustomDialogAdd from '~/components/CustomDialogAdd.vue';
-
+import OrgsCustomDialogAdd from '~/components/Orgs/CustomDialogAdd.vue';
 
 const $q = useQuasar(); 
-const step = ref(1);
-const dialogOpen = ref(false);
-const formData = ref({
-  name: '',
-  email: '',
-  phone: '',
-});
 
 const columns = ref([
   { name: 'organization_type', label: 'Organization Type', align: 'left', field: 'organization_type', sortable: true },
@@ -97,7 +36,7 @@ const columns = ref([
   { name: 'tax_id', label: 'Tax ID', align: 'center', field: 'tax_id', sortable: true },
   { name: 'website', label: 'Website', align: 'center', field: 'website', sortable: true },
   { name: 'phone', label: 'Phone', align: 'center', field: 'phone', sortable: true },
-  { name: 'actions', label: 'Actions', align: 'center', field: 'actions' },
+  { name: 'actions', label: 'Actions', align: 'center', field: 'actions', class: 'bold-column' },
 ]);
 
 const rows = ref([
@@ -117,60 +56,15 @@ const rows = ref([
   }
 ]);
 
-const viewOrganization = () => {
-  $q.dialog({
-    component: CustomComponent,
-    componentProps: {
-      message: 'This is for showing details...'
-    }
-  }).onOk(() => {
-    console.log('OK');
-  }).onCancel(() => {
-    console.log('Cancel');
-  }).onDismiss(() => {
-    console.log('Called on OK or Cancel');
-  });
-};
-
-const editOrganization = () => {
-  $q.dialog({
-    component: CustomComponent,
-    componentProps: {
-      message: 'This is for editing organization...'
-    }
-  }).onOk(() => {
-    console.log('OK');
-  }).onCancel(() => {
-    console.log('Cancel');
-  }).onDismiss(() => {
-    console.log('Called on OK or Cancel');
-  });
-};
-
-const deleteOrganization = () => {
-  $q.dialog({
-    component: CustomComponent,
-    componentProps: {
-      message: 'This is for deleting organization...'
-    }
-  }).onOk(() => {
-    console.log('OK');
-  }).onCancel(() => {
-    console.log('Cancel');
-  }).onDismiss(() => {
-    console.log('Called on OK or Cancel');
-  });
-};
-
-
 const showAddOrganization = () => {
   $q.dialog({
-    component: CustomDialogAdd,
+    component: OrgsCustomDialogAdd,
     componentProps: {
       message: 'This is for adding... (needs to be reapired....)'
     }
-  }).onOk(() => {
-    console.log('OK');
+  }).onOk((organizationData) => {
+    rows.value.push(organizationData)
+    console.log("New organization added:", organizationData)
   }).onCancel(() => {
     console.log('Cancel');
   }).onDismiss(() => {
@@ -178,21 +72,12 @@ const showAddOrganization = () => {
   });
 };
 
-const saveData = () => {
-  rows.value.push({
-    name: formData.value.name,
-    organization_type: '2',
-    tax_id: 12345,
-    website: 'www.org2.com',
-    phone: formData.value.phone,
-  });
-
-  formData.value = { name: '', email: '', phone: '' };
-  dialogOpen.value = false;
-};
 </script>
 
-<style>
+<style scoped>
+  .bold_column {
+    font-weight: bold;
+  }
   .text-custom {
     color: #0d3122;
   }
